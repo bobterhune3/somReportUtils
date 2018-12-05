@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace somReporter
 {
+    [Serializable()]
     public class Team 
     {
         private const String BASELINE_TEAM = "DTB";
@@ -53,7 +54,13 @@ namespace somReporter
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set {
+                name = value;
+                if( name.Contains("  "))
+                {
+                    name = name.Substring(0, name.IndexOf("  "));
+                }
+            }
         }
 
         public string Abrv
@@ -185,6 +192,7 @@ namespace somReporter
             {
                 return division;
             }
+            set { division = value; }
         }
 
         public int RunsScored
@@ -397,32 +405,32 @@ namespace somReporter
 
         public static string prettyTeamName(string teamName)
         {
-            if (teamName.Equals("Anaheim Ange")) return "ANS";
-            else if (teamName.Equals("Arizona Diam")) return "AZB";
-            else if (teamName.Equals("Chicago Cubs")) return "CHB";
-            else if (teamName.Equals("Cleveland In")) return "CLM";
-            else if (teamName.Equals("Detroit Tige")) return "DTB";
-            else if (teamName.Equals("Kansas City")) return "KCM";
-            else if (teamName.Equals("Los Angeles")) return "LAM";
-            else if (teamName.Equals("Miami Marlin")) return "MMS";
-            else if (teamName.Equals("Milwaukee Br")) return "MLG";
-            else if (teamName.Equals("New York Yan")) return "NYB";
-            else if (teamName.Equals("Oakland Athl")) return "OKM";
-            else if (teamName.Equals("Philadelphia")) return "PHM";
-            else if (teamName.Equals("Pittsburgh P")) return "PTB";
-            else if (teamName.Equals("San Diego Pa")) return "SDG";
-            else if (teamName.Equals("San Francisc")) return "SFJ";
-            else if (teamName.Equals("Seattle Mari")) return "SEG";
-            else if (teamName.Equals("St. Louis Ca")) return "SLB";
-            else if (teamName.Equals("Tampa Bay Ra")) return "TBM";
-            else if (teamName.Equals("Texas Ranger")) return "TXG";
-            else if (teamName.Equals("Toronto Blue")) return "TOG";
-            else if (teamName.Equals("Washington N")) return "WSG";
+            if (teamName.StartsWith("Anaheim Ange")) return "ANS";
+            else if (teamName.StartsWith("Arizona Diam")) return "AZB";
+            else if (teamName.StartsWith("Chicago Cubs")) return "CHB";
+            else if (teamName.StartsWith("Cleveland In")) return "CLM";
+            else if (teamName.StartsWith("Detroit Tige")) return "DTB";
+            else if (teamName.StartsWith("Kansas City")) return "KCM";
+            else if (teamName.StartsWith("Los Angeles")) return "LAM";
+            else if (teamName.StartsWith("Miami Marlin")) return "MMS";
+            else if (teamName.StartsWith("Milwaukee Br")) return "MLG";
+            else if (teamName.StartsWith("New York Yan")) return "NYB";
+            else if (teamName.StartsWith("Oakland Athl")) return "OKM";
+            else if (teamName.StartsWith("Philadelphia")) return "PHM";
+            else if (teamName.StartsWith("Pittsburgh P")) return "PTB";
+            else if (teamName.StartsWith("San Diego Pa")) return "SDG";
+            else if (teamName.StartsWith("San Francisc")) return "SFJ";
+            else if (teamName.StartsWith("Seattle Mari")) return "SEG";
+            else if (teamName.StartsWith("St. Louis Ca")) return "SLB";
+            else if (teamName.StartsWith("Tampa Bay Ra")) return "TBM";
+            else if (teamName.StartsWith("Texas Ranger")) return "TXG";
+            else if (teamName.StartsWith("Toronto Blue")) return "TOG";
+            else if (teamName.StartsWith("Washington N")) return "WSG";
                 return "UNK";
         }
     }
 
-
+    [Serializable()]
     public class Game {
         int scoreus;
         String abv;

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="data\DataStore.cs" />
     <Compile Include="data\Team.cs" />
+    <Compile Include="PlayerSortingUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reports\team\Player.cs" />
     <Compile Include="reports\Report.cs" />

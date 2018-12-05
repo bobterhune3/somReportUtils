@@ -6,79 +6,29 @@ using System.Threading.Tasks;
 
 namespace somReporter.team
 {
-    public class Player
+    public class Player : IComparable<Player>
     {
-        private string name = "";
-        private int actual = 0;
-        private int replay = 0;
-        private int targetUsage = 0;
-        private Team team;
-        private bool hitter = false;
-        private int previousReplay = 0;
-        private String throws = "R";
-        private int games = 0;
-        private String bal = "E";
-        private int ip = 0;
-        private int hits = 0;
-        private int gs = 0;
-        private String powerL = "";
-        private String powerR = "";
-        private Defense def = null;
-
         public Player( ) { }
 
-        public string Name {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
-        public string Throws
-        {
-            get { return throws; }
-            set { throws = value; }
-        }
+        public string Throws { get; set; }
 
-        public int Actual
-        {
-            get { return actual; }
-            set { actual = value; }
-        }
+        public int Actual { get; set; }
 
-        public int PreviousReplay
-        {
-            get { return previousReplay; }
-            set { previousReplay = value; }
-        }
+        public int PreviousReplay { get; set; }
 
-        public int Replay
-        {
-            get { return replay; }
-            set { replay = value; }
-        }
+        public int Replay { get; set; }
 
-        public int TargetUsage
-        {
-            get { return targetUsage; }
-            set { targetUsage = value; }
-        }
+        public int TargetUsage { get; set; }
+        public int Games { get; set; }
 
-        public int Games
-        {
-            get { return games; }
-            set { games = value; }
-        }
+        public Team Team { get; set; }
 
-        public Team Team
-        {
-            get { return team; }
-            set { team = value; }
-        }
+        public bool IsHitter { get; set; }
 
-        public bool IsHitter
-        {
-            get { return hitter; }
-            set { hitter = value; }
-        }
+        public int TeamRank { get; set; }
+        public String primaryPos { get; set; }
 
         public double Usage
         {
@@ -97,44 +47,35 @@ namespace somReporter.team
             return data;
         }
 
+        public String Bal { get; set; }
+        public int IP { get; set; }
+        public int Hits { get; set; }
+        public int BB { get; set; }
+        public int GS { get; set; }
 
-        public String Bal
-        {
-            get { return bal; }
-            set { bal = value; }
-        }
-        public int IP
-        {
-            get { return ip; }
-            set { ip = value; }
-        }
-        public int Hits
-        {
-            get { return hits; }
-            set { hits = value; }
-        }
-        public int GS
-        {
-            get { return gs; }
-            set { gs = value; }
-        }
+        public int SAVE { get; set; }
 
-        public String PowerL
-        {
-            get { return powerL; }
-            set { powerL = value; }
-        }
-        public String PowerR
-        {
-            get { return powerR; }
-            set { powerR = value; }
-        }
+        public String PowerL { get; set; }
+        public String PowerR { get; set; }
 
-        public Defense Def {
-            get { return def; }
-            set { def = value; }
-        }
+        public Defense Def { get; set; }
 
+
+        // Initial Version:  Only Sorting by Pitcher, then Hitter. 
+        //                   Pitchers are sorted by SP Rank, Closer Rank (Only One), Relief Rank
+        //
+        // Less than zero	 This instance IS BEFORE other.
+        // Zero              This instance has the same position in the sort as in other.
+        // Greater than zero This instance follows other
+        //
+        // Pitchers First, Hitters Last
+        public int CompareTo(Player other)
+        {
+            if (this.primaryPos == null) this.primaryPos = "";
+            if (other.primaryPos == null) other.primaryPos = "";
+
+            return PlayerSortingUtil.calculatePlayerComparedTo(this, other);
+        }
     }
 
     public class Defense
