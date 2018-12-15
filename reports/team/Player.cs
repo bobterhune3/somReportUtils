@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace somReporter.team
 {
+    [Serializable()]
     public class Player : IComparable<Player>
     {
-        public Player( ) { }
+        public Player(Boolean empty) { Empty = empty;  }
+
+        public Player( ) { Empty = false; }
 
         public string Name { get; set; }
 
@@ -29,6 +32,8 @@ namespace somReporter.team
 
         public int TeamRank { get; set; }
         public String primaryPos { get; set; }
+
+        public bool Empty { get;  }
 
         public double Usage
         {
@@ -78,6 +83,7 @@ namespace somReporter.team
         }
     }
 
+    [Serializable()]
     public class Defense
     {
         String c = "";
