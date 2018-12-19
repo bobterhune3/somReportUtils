@@ -96,6 +96,14 @@ namespace somReporter.team
         String cf = "";
         String ofarm = "";
 
+        /**
+         *      CF  RF  LF
+         *  CF  --   0   0
+         *  RF  +1  --   0
+         *  LF  +2  +1  --
+         *  
+         *  From this page: http://www.baseballthinkfactory.org/btf/pages/basesim/somrules.htm
+         */
         public Defense(String c, String b1, String b2, String b3, String ss, String lf, String cf, String rf, String ofarm)
         {
             this.c = c;
@@ -106,6 +114,41 @@ namespace somReporter.team
             this.lf = lf;
             this.rf = rf;
             this.cf = cf;
+
+            if( this.cf.Length > 0 )
+            {
+                if (this.lf.Length == 0)
+                    this.lf = this.cf + "#";
+                if (this.rf.Length == 0)
+                    this.rf = this.cf + "#";
+            } 
+            else if ( this.rf.Length > 0)
+            {
+                if (this.lf.Length == 0)
+                    this.lf = this.rf+ "#";
+                if (this.cf.Length == 0)
+                {
+                    int def = getOFDefRating(this.rf);
+                    if (def < 4)
+                    {
+                        this.cf = String.Format("{0}{1}#", def + 1, getERating(this.rf));
+                    }
+                }
+            }
+            else if (this.lf.Length > 0)
+            {
+                int def = getOFDefRating(this.lf);
+                if (this.cf.Length == 0 && def < 3)
+                {
+                    this.cf = String.Format("{0}{1}#", def + 2, getERating(this.lf));
+                }
+                if (this.rf.Length == 0 && def < 4)
+                {
+                    this.rf = String.Format("{0}{1}#", def + 1, getERating(this.lf));
+                }
+            }
+
+
             this.ofarm = ofarm;
         }
 
@@ -119,5 +162,13 @@ namespace somReporter.team
         public String RightFieldRating { get { return rf; } }
         public String OutfieldArm { get { return ofarm; } }
 
+        private int getOFDefRating( String def )
+        {
+            return int.Parse(def.Substring(0, 1));
+        }
+        private String getERating(String def)
+        {
+            return def.Substring(1);
+        }
     }
 }

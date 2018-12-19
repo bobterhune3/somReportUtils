@@ -405,15 +405,22 @@ namespace somReporter
 
         public static string prettyTeamName(string teamName)
         {
+            //TODO: This needs to be in a dialog
             if (teamName.StartsWith("Anaheim Ange")) return "ANS";
+            else if (teamName.StartsWith("Atlanta Brav")) return "ATH";
             else if (teamName.StartsWith("Arizona Diam")) return "AZB";
+            else if (teamName.StartsWith("Baltimore Or")) return "BLH";
+            else if (teamName.StartsWith("Boston Red S")) return "BSH";
             else if (teamName.StartsWith("Chicago Cubs")) return "CHB";
+            else if (teamName.StartsWith("Cincinnati R")) return "CNH";
             else if (teamName.StartsWith("Cleveland In")) return "CLM";
             else if (teamName.StartsWith("Detroit Tige")) return "DTB";
+            else if (teamName.StartsWith("Houston Astr")) return "HSH";
             else if (teamName.StartsWith("Kansas City")) return "KCM";
             else if (teamName.StartsWith("Los Angeles")) return "LAM";
             else if (teamName.StartsWith("Miami Marlin")) return "MMS";
-            else if (teamName.StartsWith("Milwaukee Br")) return "MLG";
+            else if (teamName.StartsWith("Milwaukee Br")) return "MNB";
+            else if (teamName.StartsWith("Minnesota Tw")) return "PTB";
             else if (teamName.StartsWith("New York Yan")) return "NYB";
             else if (teamName.StartsWith("Oakland Athl")) return "OKM";
             else if (teamName.StartsWith("Philadelphia")) return "PHM";

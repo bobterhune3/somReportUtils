@@ -82,7 +82,7 @@ namespace somReporter.team
             player.primaryPos = "SP";
             other.primaryPos = "SP";
 
-            Console.WriteLine(player.Name + "=" + pointsPlayer + ", " + other.Name + "=" + pointsOther);
+  //          Console.WriteLine(player.Name + "=" + pointsPlayer + ", " + other.Name + "=" + pointsOther);
             return pointsOther - pointsPlayer;
         }
 
@@ -112,7 +112,7 @@ namespace somReporter.team
                     player.primaryPos = "CL";
             }
 
-            Console.WriteLine(player.Name + "=" + pointsPlayer + ", " + other.Name + "=" + pointsOther);
+  //          Console.WriteLine(player.Name + "=" + pointsPlayer + ", " + other.Name + "=" + pointsOther);
             return pointsOther - pointsPlayer;
         }
 
