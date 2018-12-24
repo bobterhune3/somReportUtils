@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace somReporter
 {
     [Serializable()]
-    public class Team 
+    public class Team
     {
         private const String BASELINE_TEAM = "DTB";
         private String name = "";
@@ -54,9 +54,10 @@ namespace somReporter
         public string Name
         {
             get { return name; }
-            set {
+            set
+            {
                 name = value;
-                if( name.Contains("  "))
+                if (name.Contains("  "))
                 {
                     name = name.Substring(0, name.IndexOf("  "));
                 }
@@ -66,14 +67,16 @@ namespace somReporter
         public string Abrv
         {
             get { return abrv; }
-            set {
+            set
+            {
                 abrv = value;
-                owner = abrv.Substring(2,1);
+                owner = abrv.Substring(2, 1);
             }
         }
 
 
-        public override bool Equals(Object obj) {
+        public override bool Equals(Object obj)
+        {
             if (obj is Team)
             {
                 return ((Team)obj).Abrv.Equals(Abrv);
@@ -81,14 +84,14 @@ namespace somReporter
             return false;
         }
 
-        public override int GetHashCode( )
+        public override int GetHashCode()
         {
             return 808;
         }
 
         public void addLineScore(int teama_score, string teamb_abv, int teamb_score, bool homeTeam)
         {
-           linescores.Insert(0, new Game(teama_score, teamb_abv, teamb_score, homeTeam));
+            linescores.Insert(0, new Game(teama_score, teamb_abv, teamb_score, homeTeam));
         }
 
         public List<Game> LineScores { get { return linescores; } }
@@ -106,11 +109,13 @@ namespace somReporter
             }
         }
 
-        public int GamesPlayed {
+        public int GamesPlayed
+        {
             get { return Wins + Loses; }
         }
 
-        public int Wins {
+        public int Wins
+        {
             get { return wins; }
             set { wins = value; }
         }
@@ -121,9 +126,11 @@ namespace somReporter
             set { winsPrevious = value; }
         }
 
-        public int Loses {
+        public int Loses
+        {
             get { return loses; }
-            set {
+            set
+            {
                 loses = value;
                 if (Abrv.Equals(BASELINE_TEAM))
                     TOTAL_GAMES = Wins + loses;
@@ -140,16 +147,17 @@ namespace somReporter
         {
             get
             {
-              //  return wpct;
-                return Report.RoundToSignificantDigits((double)Wins / ((double)Wins + (double)Loses),3);
+                //  return wpct;
+                return Report.RoundToSignificantDigits((double)Wins / ((double)Wins + (double)Loses), 3);
             }
 
- 
+
         }
 
-        public double Gb {
+        public double Gb
+        {
             get { return gb; }
-            set { gb = value;  }
+            set { gb = value; }
         }
 
         public double GbPrevious
@@ -166,7 +174,8 @@ namespace somReporter
             }
         }
 
-        public int WinPctHistoryGameCount {
+        public int WinPctHistoryGameCount
+        {
             get { return winPctHistoryGameCount; }
             set { winPctHistoryGameCount = value; }
         }
@@ -181,8 +190,9 @@ namespace somReporter
 
         public double PythagoreanTheorem
         {
-            get {
-                return Report.RoundToSignificantDigits(pythagoreanTheorem,3);
+            get
+            {
+                return Report.RoundToSignificantDigits(pythagoreanTheorem, 3);
             }
         }
 
@@ -266,7 +276,7 @@ namespace somReporter
         public int SecondPlaceTeamLosses
         {
             get { return secondPlaceTeamLosses; }
-            set { secondPlaceTeamLosses = value;  }
+            set { secondPlaceTeamLosses = value; }
         }
 
         public int DivisionPositionCurrent
@@ -288,12 +298,12 @@ namespace somReporter
         public int DivisionPositionPrevious
         {
             get { return divisionPositionPrevious; }
-            set { divisionPositionPrevious  = value; }
+            set { divisionPositionPrevious = value; }
         }
         public int DraftPickPositionPrevious
         {
             get { return draftPickPositionPrevious; }
-            set { draftPickPositionPrevious  = value; }
+            set { draftPickPositionPrevious = value; }
         }
         public int WildCardPositionPrevious
         {
@@ -306,29 +316,35 @@ namespace somReporter
             set { wildCardPositionCurrent = value; }
         }
 
-        private void calculatePythagoreanTheorem() {
+        private void calculatePythagoreanTheorem()
+        {
 
-            if( runsAllowed > 0 && runsScored > 0) {
-                pythagoreanTheorem = (Math.Pow((double)runsScored,2) / 
-                                    (Math.Pow((double)runsScored,2) + Math.Pow((double)runsAllowed,2)));
+            if (runsAllowed > 0 && runsScored > 0)
+            {
+                pythagoreanTheorem = (Math.Pow((double)runsScored, 2) /
+                                    (Math.Pow((double)runsScored, 2) + Math.Pow((double)runsAllowed, 2)));
             }
         }
 
-        public double calculateGamesBehind(Team leader) {
+        public double calculateGamesBehind(Team leader)
+        {
             double a1 = ((double)leader.Wins - (double)this.Wins);
             double a2 = ((double)this.Loses - (double)leader.Loses);
             return (a1 + a2) / 2.0;
         }
 
-        public Team(String div, int leagueNameLength) {
-            if (leagueNameLength > 0) { 
+        public Team(String div, int leagueNameLength)
+        {
+            if (leagueNameLength > 0)
+            {
                 league = div.Substring(0, 2);
                 // This fixes a typo in the league
                 if (league.Equals("NE"))
                     league = "NL";
                 division = div.Substring(3);
             }
-            else { 
+            else
+            {
                 league = "";
                 division = div;
             }
@@ -346,47 +362,62 @@ namespace somReporter
             return data;
         }
 
-        public string RecordLastRun {
-            get {
+        public string RecordLastRun
+        {
+            get
+            {
                 int wins = this.Wins - this.WinsPrevious;
                 int loses = this.Loses - this.LosesPrevious;
                 return String.Format("{0}-{1}", wins, loses);
             }
         }
 
-        public double BattingAverage { get { return average; }
-                                       set { this.average = value; } }
-        public double HomeRuns { get { return homeruns; }
-                                 set { this.homeruns = value; }}
+        public double BattingAverage
+        {
+            get { return average; }
+            set { this.average = value; }
+        }
+        public double HomeRuns
+        {
+            get { return homeruns; }
+            set { this.homeruns = value; }
+        }
         public double HomeRunsAllowed
         {
             get { return homerunsAllowed; }
             set { this.homerunsAllowed = value; }
         }
-        
-        public double EarnedRunAvg { get { return era; }
-                                     set { this.era = value; } }
 
-        public bool getLeader( CATEGORY cat ) {
+        public double EarnedRunAvg
+        {
+            get { return era; }
+            set { this.era = value; }
+        }
+
+        public bool getLeader(CATEGORY cat)
+        {
             bool bResult = false;
             if (hLeaders.Count == 0) return bResult;
             hLeaders.TryGetValue(cat, out bResult);
             return bResult;
         }
 
-        public bool getTrailing(CATEGORY cat) {
+        public bool getTrailing(CATEGORY cat)
+        {
             bool bResult = false;
             if (hTrailing.Count == 0) return bResult;
             hTrailing.TryGetValue(cat, out bResult);
-            return bResult;             
+            return bResult;
         }
 
-        public void setLeader(CATEGORY cat ) {
+        public void setLeader(CATEGORY cat)
+        {
             hLeaders.Add(cat, true);
 
         }
 
-        public void setTrailing(CATEGORY cat) {
+        public void setTrailing(CATEGORY cat)
+        {
             hTrailing.Add(cat, true);
         }
 
@@ -398,43 +429,11 @@ namespace somReporter
 
         public void addWinPctHistoryData(double value)
         {
-            if(wpctHistory == null )
+            if (wpctHistory == null)
                 wpctHistory = new List<double>();
             wpctHistory.Add(value);
         }
 
-        public static string prettyTeamName(string teamName)
-        {
-            //TODO: This needs to be in a dialog
-            if (teamName.StartsWith("Anaheim Ange")) return "ANS";
-            else if (teamName.StartsWith("Atlanta Brav")) return "ATH";
-            else if (teamName.StartsWith("Arizona Diam")) return "AZB";
-            else if (teamName.StartsWith("Baltimore Or")) return "BLH";
-            else if (teamName.StartsWith("Boston Red S")) return "BSH";
-            else if (teamName.StartsWith("Chicago Cubs")) return "CHB";
-            else if (teamName.StartsWith("Cincinnati R")) return "CNH";
-            else if (teamName.StartsWith("Cleveland In")) return "CLM";
-            else if (teamName.StartsWith("Detroit Tige")) return "DTB";
-            else if (teamName.StartsWith("Houston Astr")) return "HSH";
-            else if (teamName.StartsWith("Kansas City")) return "KCM";
-            else if (teamName.StartsWith("Los Angeles")) return "LAM";
-            else if (teamName.StartsWith("Miami Marlin")) return "MMS";
-            else if (teamName.StartsWith("Milwaukee Br")) return "MNB";
-            else if (teamName.StartsWith("Minnesota Tw")) return "PTB";
-            else if (teamName.StartsWith("New York Yan")) return "NYB";
-            else if (teamName.StartsWith("Oakland Athl")) return "OKM";
-            else if (teamName.StartsWith("Philadelphia")) return "PHM";
-            else if (teamName.StartsWith("Pittsburgh P")) return "PTB";
-            else if (teamName.StartsWith("San Diego Pa")) return "SDG";
-            else if (teamName.StartsWith("San Francisc")) return "SFJ";
-            else if (teamName.StartsWith("Seattle Mari")) return "SEG";
-            else if (teamName.StartsWith("St. Louis Ca")) return "SLB";
-            else if (teamName.StartsWith("Tampa Bay Ra")) return "TBM";
-            else if (teamName.StartsWith("Texas Ranger")) return "TXG";
-            else if (teamName.StartsWith("Toronto Blue")) return "TOG";
-            else if (teamName.StartsWith("Washington N")) return "WSG";
-                return "UNK";
-        }
     }
 
     [Serializable()]

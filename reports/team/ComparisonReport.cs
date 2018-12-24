@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using somReportUtils;
 
 namespace somReporter.team
 {
@@ -94,7 +92,7 @@ namespace somReporter.team
                             player.TargetUsage = getPitcherTargetUsage(player.Actual);
                         }
 
-                        Team team = Report.DATABASE.getTeam(Team.prettyTeamName(teamName));
+                        Team team = Report.DATABASE.getTeam(TeamUtils.prettyTeamName(teamName));
                         if( team == null) {
                             team = new Team("XX", leagueNameLength);
                             team.Abrv = teamName;
