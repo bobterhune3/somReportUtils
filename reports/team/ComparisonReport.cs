@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using somReportUtils;
+using somReporter;
 
 namespace somReporter.team
 {
@@ -94,7 +95,7 @@ namespace somReporter.team
 
                         Team team = Report.DATABASE.getTeam(TeamUtils.prettyTeamName(teamName));
                         if( team == null) {
-                            team = new Team("XX", leagueNameLength);
+                            team = new Team(RecordIndex.getNextId(RecordIndex.INDEX.TeamId), "XX", leagueNameLength);
                             team.Abrv = teamName;
                         }
                         player.Team = team;

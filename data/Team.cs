@@ -6,6 +6,8 @@ namespace somReporter
     [Serializable()]
     public class Team
     {
+        public long Id { get; set; }
+
         private const String BASELINE_TEAM = "DTB";
         private String name = "";
         private String abrv = "";
@@ -45,6 +47,27 @@ namespace somReporter
         Dictionary<CATEGORY, Boolean> hTrailing = new Dictionary<CATEGORY, Boolean>();
 
         public enum CATEGORY { BATTING_AVERAGE, EARNED_RUNS_AVG, HOME_RUNS, NONE };
+
+        public Team(long Id, String div, int leagueNameLength)
+        {
+            this.Id = Id;
+            if (leagueNameLength > 0)
+            {
+                league = div.Substring(0, 2);
+                // This fixes a typo in the league
+                if (league.Equals("NE"))
+                    league = "NL";
+                division = div.Substring(3);
+            }
+            else
+            {
+                league = "";
+                division = div;
+            }
+
+
+            full_div = div;
+        }
 
         public override string ToString()
         {
@@ -331,26 +354,6 @@ namespace somReporter
             double a1 = ((double)leader.Wins - (double)this.Wins);
             double a2 = ((double)this.Loses - (double)leader.Loses);
             return (a1 + a2) / 2.0;
-        }
-
-        public Team(String div, int leagueNameLength)
-        {
-            if (leagueNameLength > 0)
-            {
-                league = div.Substring(0, 2);
-                // This fixes a typo in the league
-                if (league.Equals("NE"))
-                    league = "NL";
-                division = div.Substring(3);
-            }
-            else
-            {
-                league = "";
-                division = div;
-            }
-
-
-            full_div = div;
         }
 
         public string buildStorageData()

@@ -9,9 +9,13 @@ namespace somReporter.team
     [Serializable()]
     public class Player : IComparable<Player>
     {
+        public long Id { get; set; }
+
         public Player(Boolean empty) { Empty = empty;  }
 
-        public Player( ) { Empty = false; }
+        public Player( ) {
+            Empty = false;
+        }
 
         public string Name { get; set; }
 
@@ -86,6 +90,8 @@ namespace somReporter.team
     [Serializable()]
     public class Defense
     {
+        public long Id { get; set; }
+
         String c = "";
         String b1 = "";
         String b2 = "";
@@ -104,8 +110,9 @@ namespace somReporter.team
          *  
          *  From this page: http://www.baseballthinkfactory.org/btf/pages/basesim/somrules.htm
          */
-        public Defense(String c, String b1, String b2, String b3, String ss, String lf, String cf, String rf, String ofarm)
+        public Defense(long Id, String c, String b1, String b2, String b3, String ss, String lf, String cf, String rf, String ofarm)
         {
+            this.Id = Id;
             this.c = c;
             this.b1 = b1;
             this.b2 = b2;
